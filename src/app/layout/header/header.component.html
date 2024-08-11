@@ -1,1 +1,44 @@
-<p>header works!</p>
+<header class="text-white-600 body-font bg-blue-500">
+  <div
+    class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+  >
+    <a
+      routerLink="/"
+      class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 cursor-pointer"
+    >
+      <app-logo
+        class="w-10 h-10 p-2 text-gray-900 bg-orange-500 rounded-full"
+      />
+      <span class="ml-3 text-xl">Paycommerce</span>
+    </a>
+    <nav
+      class="md:ml-auto flex flex-wrap items-center text-base justify-center"
+    >
+      <a class="mr-5 hover:text-gray-900 cursor-pointer">Productos</a>
+    </nav>
+    <div class="relative">
+      <button
+        (click)="toggleMenu()"
+        class="inline-flex items-center bg-gray-100 border rounded-lg py-1 px-5 focus:outline-none hover:bg-gray-200 text-base mt-4 md:mt-0"
+      >
+        <app-cart-logo class="w-10 h-10 p-2 font-bold rounded-full" />
+      </button>
+      @if (isMenuOpen) {
+      <div
+        class="absolute right-0 mt-0 w-48 bg-white border rounded-lg shadow-lg z-10 cursor-default"
+      >
+        <ul class="py-1 text-gray-700">
+          <li class="px-4 py-2">1 Camisa</li>
+          <li class="px-4 py-2">2 Pantalones</li>
+          <li class="px-4 py-2">4 Medias</li>
+          <hr class="mt-2 border-gray-400" />
+          <li class="flex justify-between px-5 p-2 font-light">
+            Total:
+            <span class="not-italic font-bold"> $300k </span>
+          </li>
+        </ul>
+      </div>
+      }
+    </div>
+  </div>
+</header>
