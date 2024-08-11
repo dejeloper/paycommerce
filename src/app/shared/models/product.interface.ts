@@ -11,6 +11,6 @@ export interface Product {
   description: string;
   image: string;
   rating: Rating;
-  qyt: number;
+  qty: number;
   subTotal: number;
 }

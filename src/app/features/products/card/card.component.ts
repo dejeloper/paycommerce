@@ -1,5 +1,5 @@
 import { CurrencyPipe, SlicePipe } from '@angular/common';
-import { Component, EventEmitter, input, output, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product } from '@shared/models/product.interface';
 

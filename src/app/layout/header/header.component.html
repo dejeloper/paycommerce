@@ -21,22 +21,42 @@
     <div class="relative">
       <button
         (click)="toggleMenu()"
-        class="inline-flex items-center bg-gray-100 border rounded-lg py-1 px-5 focus:outline-none hover:bg-gray-200 text-base mt-4 md:mt-0"
+        [disabled]="!cartStore.productsCount()"
+        class="inline-flex items-center bg-gray-100 border rounded-lg p-1 focus:outline-none hover:bg-gray-200 text-base mt-4 md:mt-0 cursor-pointer"
       >
-        <app-cart-logo class="w-10 h-10 p-2 font-bold rounded-full" />
+        <app-cart-logo
+          class="w-10 h-10 p-2 font-bold rounded-full transform transition duration-300 ease-in-out"
+          [class.-scale-x-100]="isMenuOpen"
+        />
+        @if (cartStore.productsCount() ) {
+        <span
+          class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center"
+        >
+          {{ cartStore.productsCount() }}
+        </span>
+        }
       </button>
-      @if (isMenuOpen) {
+      @if (isMenuOpen && cartStore.productsCount()) {
       <div
-        class="absolute right-0 mt-0 w-48 bg-white border rounded-lg shadow-lg z-10 cursor-default"
+        class="absolute right-0 mt-0 w-64 bg-white border rounded-lg shadow-lg z-10 cursor-default transition-opacity duration-300 ease-in-out"
       >
         <ul class="py-1 text-gray-700">
-          <li class="px-4 py-2">1 Camisa</li>
-          <li class="px-4 py-2">2 Pantalones</li>
-          <li class="px-4 py-2">4 Medias</li>
+          @for (product of cartStore.products(); track $index) {
+          <li
+            class="px-4 py-2 flex items-center justify-between"
+            title="{{ product.title }}"
+          >
+            <span class="font-bold">{{ product.qty }}</span>
+            <span>{{ product.title | slice : 0 : 10 }}</span>
+            <span>{{ product.subTotal || product.price | currency }}</span>
+          </li>
+          }
           <hr class="mt-2 border-gray-400" />
           <li class="flex justify-between px-5 p-2 font-light">
             Total:
-            <span class="not-italic font-bold"> $300k </span>
+            <span class="not-italic font-bold">
+              {{ cartStore.totalAmount() | currency }}
+            </span>
           </li>
         </ul>
       </div>
