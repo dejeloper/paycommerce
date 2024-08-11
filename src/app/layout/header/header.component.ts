@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { CartLogoComponent } from '../cart-logo/cart-logo.component';
 import { LogoComponent } from '../logo/logo.component';
 import { HostListener } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CartLogoComponent, LogoComponent],
+  imports: [CartLogoComponent, LogoComponent, RouterLink],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styles: [],
 })
 export class HeaderComponent {
   isMenuOpen = false;

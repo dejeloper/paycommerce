@@ -8,7 +8,7 @@ import { Product } from '@shared/models/product.interface';
   standalone: true,
   imports: [CurrencyPipe, SlicePipe, RouterLink],
   templateUrl: './card.component.html',
-  styles: ``,
+  styles: [],
 })
 export class CardComponent {
   product = input.required<Product>();
