@@ -37,11 +37,38 @@ export const CartStore = signalStore(
         isProductCart.subTotal = isProductCart.qty * isProductCart.price;
         patchState(store, { products: [...products()] });
       } else {
+        if (product.qty === 1) {
+          product.subTotal = product.price;
+        }
         patchState(store, { products: [...products(), product] });
       }
     },
-    removeToCart(id: number) {
+    deleteToCart(product: Product) {
+      const qty = product.qty - 1;
+      const subTotal = product.price * qty;
+
+      if (qty <= 0) {
+        this.removeProductToCart(product.id);
+      } else {
+        product.qty = qty;
+        product.subTotal = subTotal;
+
+        patchState(store, { products: [...products()] });
+      }
+    },
+    removeProductToCart(id: number) {
+      const deleteProduct = products()
+        .filter((product) => product.id === id)
+        .map((product) => {
+          product.qty = 1;
+          product.subTotal = 0;
+          return product;
+        });
+
+      patchState(store, { products: [...products(), deleteProduct[0]] });
+
       const updatedProducts = products().filter((product) => product.id !== id);
+
       patchState(store, { products: updatedProducts });
     },
     clearCart() {
@@ -51,7 +78,6 @@ export const CartStore = signalStore(
 );
 
 function calculateProductCount(products: Product[]): number {
-  console.log({ products });
   return products.reduce((acc, product) => acc + product.qty, 0);
 }
 
