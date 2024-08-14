@@ -11,7 +11,8 @@ app.use(express.static("public"));
 app.use(cors());
 app.use(bodyParser.json());
 
-const YOUR_DOMAIN = "http://localhost:4242";
+const PAGE = "http://localhost:4242";
+const PAGE_SHOP = "http://localhost:4200";
 app;
 app.post("/checkout", async (req, res) => {
   const products = req.body.products.map((product) => {
@@ -31,8 +32,8 @@ app.post("/checkout", async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: [...products],
     mode: "payment",
-    success_url: `${YOUR_DOMAIN}/success.html`,
-    cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+    success_url: `${PAGE_SHOP}/success`,
+    cancel_url: `${PAGE_SHOP}/cancel`,
   });
 
   res.status(200).json(session);
@@ -46,7 +47,7 @@ app.post("/checkout", async (req, res) => {
   //     },
   //   ],
   //   mode: "payment",
-  //   return_url: `${YOUR_DOMAIN}/return.html?session_id={CHECKOUT_SESSION_ID}`,
+  //   return_url: `${PAGE}/return.html?session_id={CHECKOUT_SESSION_ID}`,
   // });
 
   // res.send({ clientSecret: session.client_secret });
