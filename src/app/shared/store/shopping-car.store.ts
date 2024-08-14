@@ -1,4 +1,4 @@
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import {
   patchState,
   signalStore,
@@ -7,6 +7,7 @@ import {
   withState,
 } from '@ngrx/signals';
 import { Product } from '@shared/models/product.interface';
+import { ToastrService } from 'ngx-toastr';
 
 export interface CartStore {
   products: Product[];
@@ -27,7 +28,7 @@ export const CartStore = signalStore(
     productsCount: computed(() => calculateProductCount(products())),
     totalAmount: computed(() => calculateTotalAmount(products())),
   })),
-  withMethods(({ products, ...store }) => ({
+  withMethods(({ products, ...store }, toastSvr = inject(ToastrService)) => ({
     addToCart(product: Product) {
       const isProductCart = products().find(
         (item: Product) => item.id === product.id
@@ -42,6 +43,7 @@ export const CartStore = signalStore(
         }
         patchState(store, { products: [...products(), product] });
       }
+      toastSvr.success('Producto agregado correctamente', 'PayCommerce');
     },
     deleteToCart(product: Product) {
       const qty = product.qty - 1;
@@ -55,6 +57,7 @@ export const CartStore = signalStore(
 
         patchState(store, { products: [...products()] });
       }
+      toastSvr.info('Producto eliminado correctamente', 'PayCommerce');
     },
     removeProductToCart(id: number) {
       const deleteProduct = products()
@@ -70,9 +73,11 @@ export const CartStore = signalStore(
       const updatedProducts = products().filter((product) => product.id !== id);
 
       patchState(store, { products: updatedProducts });
+      toastSvr.info('Productos eliminados correctamente', 'PayCommerce');
     },
     clearCart() {
       patchState(store, initialState);
+      toastSvr.info('Productos eliminados correctamente', 'PayCommerce');
     },
   }))
 );
