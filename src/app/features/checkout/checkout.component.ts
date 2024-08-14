@@ -30,7 +30,7 @@ export default class CheckoutComponent {
   private readonly _checkoutSvc = inject(CheckoutService);
 
   onProceedToPay(): void {
-    this._checkoutSvc.onProceedToPay();
+    this._checkoutSvc.onProceedToPay(this.cartStore.products());
   }
 
   addToCart(product: Product): void {
