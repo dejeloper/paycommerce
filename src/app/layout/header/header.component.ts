@@ -1,10 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { CartLogoComponent } from '../cart-logo/cart-logo.component';
-import { LogoComponent } from '../logo/logo.component';
-import { HostListener } from '@angular/core';
+import { Component, inject, HostListener } from '@angular/core';
+import { CurrencyPipe, SlicePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CartStore } from '@shared/store/shopping-car.store';
-import { CurrencyPipe, SlicePipe } from '@angular/common';
+import {
+  CartLogoComponent,
+  LogoComponent,
+  PayLogoComponent,
+} from 'app/layout/icons';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +17,7 @@ import { CurrencyPipe, SlicePipe } from '@angular/common';
     RouterLink,
     CurrencyPipe,
     SlicePipe,
+    PayLogoComponent,
   ],
   templateUrl: './header.component.html',
   styles: [],
@@ -25,6 +28,10 @@ export class HeaderComponent {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 
   @HostListener('document:click', ['$event'])

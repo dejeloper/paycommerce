@@ -13,9 +13,14 @@
       class="md:ml-auto flex flex-wrap items-center text-base justify-center text-white"
     >
       <a
-        href="/"
+        routerLink="/products"
         class="mr-2 hover:text-gray-900 cursor-pointer hover:bg-gray-200 hover:border hover:rounded-lg py-2 px-6 hover:focus:outline-none"
         ><span class="p-2">Productos</span></a
+      >
+      <a
+        routerLink="/checkout"
+        class="mr-2 hover:text-gray-900 cursor-pointer hover:bg-gray-200 hover:border hover:rounded-lg py-2 px-6 hover:focus:outline-none"
+        ><span class="p-2">Carrito</span></a
       >
     </nav>
     <div class="relative">
@@ -59,6 +64,18 @@
             </span>
           </li>
         </ul>
+
+        <hr class="mt-2 border-gray-400" />
+        <div class="flex item-center justify-center w-full">
+          <a
+            routerLink="/checkout"
+            (click)="closeMenu()"
+            class="flex item-center justify-center w-full m-2 text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg text-center items-center"
+          >
+            <app-pay-logo class="w-5 h-5 me-2" />
+            Ir al Carrito
+          </a>
+        </div>
       </div>
       }
     </div>
