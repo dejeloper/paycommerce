@@ -30,6 +30,7 @@ export class ProductServices {
           products.map((product: Product) => ({
             ...product,
             qty: 1,
+            subTotal: 0,
           }))
         ),
         tap((products: Product[]) => this.products.set(products))
